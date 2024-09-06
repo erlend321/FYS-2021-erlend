@@ -107,7 +107,46 @@ def SGD(A, y, weight, lr, epoch):
             # oppdaterer vekten
             weight -= lr * stigning
 
-            
+        # regner ut cost og lagrer det i cost_list
+        cost = compute_cost(A, y, weight)
+        cost_list.append(cost)
+
+        # printer cost ved hver tiende epoch
+        if e % 10 == 0: 
+            print(f"Epoch nr. {e} Cost: {cost:.5f}")
+
+    return weight, cost_list
+
+def accuracy(A, y, weight):
+    guess = predict(A, weight) >= 0.5  # hvorfor 0.5??
+    accuracy = np.mean(guess == y) * 100 # hvorfor * 100??
+    return accuracy
+
+
+# adding bias
+A_train_bias = np.c_[np.ones((x_train.shape[0], 1)), x_train]
+weight = np.zeros(A_train_bias.shape[1]) # start weights at 0
+
+
+lr = 0.1   # 0.005
+epoch = 1000  # 100
+
+weight, cost_list = SGD(A_train_bias, y_train, weight, lr, epoch)
+
+# plotter training error
+
+plt.plot(range(epoch), cost_list)
+plt.xlabel('Rounds')
+plt.ylabel('Error')
+plt.title('How much error do we have')
+plt.show()
+
+train_accuracy = accuracy(A_train_bias, y_train, weight)
+print(f"The model is getting {train_accuracy:.4f}% right\n")
+
+
+
+
 
 
 
