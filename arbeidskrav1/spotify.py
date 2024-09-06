@@ -111,9 +111,9 @@ def SGD(A, y, weight, lr, epoch):
         cost = compute_cost(A, y, weight)
         cost_list.append(cost)
 
-        # printer cost ved hver tiende epoch
+        # printer cost ved gitt antall epochs
         if e % 10 == 0: 
-            print(f"Epoch nr. {e} Cost: {cost:.5f}")
+            print(f"Epoch nr. {e} Cost: {cost:.5f}\n")
 
     return weight, cost_list
 
@@ -128,8 +128,8 @@ A_train_bias = np.c_[np.ones((x_train.shape[0], 1)), x_train]
 weight = np.zeros(A_train_bias.shape[1]) # start weights at 0
 
 
-lr = 0.1   # 0.005
-epoch = 1000  # 100
+lr = 0.0001   # 0.005
+epoch = 300
 
 weight, cost_list = SGD(A_train_bias, y_train, weight, lr, epoch)
 
@@ -142,7 +142,7 @@ plt.title('How much error do we have')
 plt.show()
 
 train_accuracy = accuracy(A_train_bias, y_train, weight)
-print(f"The model is getting {train_accuracy:.4f}% right\n")
+print(f"The model is getting {train_accuracy:.4f}% right")
 
 
 
