@@ -24,7 +24,7 @@ print(f"Number of features: {num_features}")
 
 reduced_data = data[(data['genre'] == 'Pop') | (data['genre'] == 'Classical')].copy()
 
-# Pop = 1 Classical = 0
+# pop = 1 classical = 0
 reduced_data['label'] = reduced_data['genre'].apply(lambda x: 1 if x == 'Pop' else 0)
 
 
@@ -38,15 +38,6 @@ Hvor mange pop og klassiske samples
 print(f"Number of Pop samples: {pop_samples}")
 print(f"Number of Classical samples: {classical_samples}")
 
-
-
-
-"""
-From the reduced dataset, make 2 numpy arrays. The first array will be the matrix with songs along the
-rows and songs features ("liveness" and "loudness") as columns. This will be the input of our machine
-learning method. The second array will the vector with the songs genre (labels or target we want to
-learn). Create a training and test set by splitting the dataset. 
-"""
 
 
 x = np.array(reduced_data[['liveness', 'loudness']])
@@ -64,10 +55,6 @@ print(f"Test set size: {x_test.shape[0]}")
 
 """
 The machine learning part
-We have to use a SGD method and could choose our own logistic discrimination
-classifier. I chose to use the sigmoid function for the logistic regression,
-because it is spesifically used in cases to map the output value between 1 and 0. 
-
 """
 
 def sigmoid_funk(x):
