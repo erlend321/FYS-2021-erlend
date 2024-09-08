@@ -109,14 +109,14 @@ def SGD(A, y, weight, lr, epoch):
         cost_list.append(cost)
 
         # printer cost ved gitt antall epochs
-        if e % 10 == 0: 
+        if e % 1000 == 0: 
             print(f"Epoch nr. {e} Cost: {cost:.5f}\n")
 
     return weight, cost_list
 
 def accuracy(A, y, weight):
-    guess = predict(A, weight) >= .5  # hvorfor 0.5??
-    accuracy = np.mean(guess == y) * 100 # hvorfor * 100??
+    guess = predict(A, weight) >= .5 
+    accuracy = np.mean(guess == y) * 100
     return accuracy
 
 
@@ -126,7 +126,7 @@ weight = np.zeros(A_train_bias.shape[1]) # start weights at 0
 
 
 lr = .0001   # 0.0001
-epoch = 50 #  ved 50 e fikk vi 92.7848% riktig
+epoch = 2000
 
 weight, cost_list = SGD(A_train_bias, y_train, weight, lr, epoch)
 
@@ -136,10 +136,17 @@ plt.plot(range(epoch), cost_list)
 plt.xlabel('Rounds')
 plt.ylabel('Error')
 plt.title('How much error do we have')
-#plt.show()
+plt.show()
 
 train_accuracy = accuracy(A_train_bias, y_train, weight)
-print(f"The model is getting {train_accuracy:.4f}% right")
+print(f"Training accuracy {train_accuracy:.4f}%")
+
+# legger til bias til test set
+A_test_bias = np.c_[np.ones((x_test.shape[0], 1)), x_test]
+
+# accuracy on test set
+test_accuracy = accuracy(A_test_bias, y_test, weight)
+print(f"Test accuracy:  {test_accuracy:.3f}% right")
 
 
 """
