@@ -54,7 +54,7 @@ y = np.array(reduced_data['label'])
 
 
 # shuffle og split
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, stratify=y, random_state=42)   #(x, y, test_size = 0.2, shuffle, stratify = y)   # shuffle
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, stratify=y, random_state=42)   
 
 
 
@@ -109,7 +109,7 @@ def SGD(A, y, weight, lr, epoch):
         cost_list.append(cost)
 
         # printer cost ved gitt antall epochs
-        if e % 1000 == 0: 
+        if e % 10 == 0: 
             print(f"Epoch nr. {e} Cost: {cost:.5f}\n")
 
     return weight, cost_list
@@ -126,15 +126,15 @@ weight = np.zeros(A_train_bias.shape[1]) # start weights at 0
 
 
 lr = .0001   # 0.0001
-epoch = 2000
+epoch = 120
 
 weight, cost_list = SGD(A_train_bias, y_train, weight, lr, epoch)
 
 # plotter training error
 
 plt.plot(range(epoch), cost_list)
-plt.xlabel('Rounds')
-plt.ylabel('Error')
+plt.xlabel('Epochs')
+plt.ylabel('Cost (Error)')
 plt.title('How much error do we have')
 plt.show()
 
@@ -142,6 +142,7 @@ train_accuracy = accuracy(A_train_bias, y_train, weight)
 print(f"Training accuracy {train_accuracy:.4f}%")
 
 # legger til bias til test set
+# np.c_ is to create stacked columnwise arrays see https://images.datacamp.com/image/upload/v1676302459/Marketing/Blog/Numpy_Cheat_Sheet.pdf
 A_test_bias = np.c_[np.ones((x_test.shape[0], 1)), x_test]
 
 # accuracy on test set
