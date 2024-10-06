@@ -9,14 +9,12 @@ from sklearn.model_selection import train_test_split #only used for splitting
 data = pd.read_csv('data_problem2.csv')
 data = data.transpose().reset_index()
 data.columns = ["value", "Label"]
-# print(data["value"])
+print(data["value"])
 
 #convert the values to floats
 data["value"] = data["value"].astype(float)
 
-#check type == float (we dont want string)
-# print(data["value"].to_numpy().shape)
-# print(type(data["value"].to_numpy()[0]))
+
 
 
 
@@ -26,12 +24,13 @@ C1_data = data[data["Label"] == 1]["value"].to_numpy()  #class 1
 
 
 """
+2a,
 Plotting different histograms
 One for all the data and then two different sets representing c0 and c1
 """
 
 #all the datapoints
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6, 4))
 plt.hist(data["value"].to_numpy(), bins = 100, edgecolor='black')
 plt.title('Histogram of Values')
 plt.xlabel('Value')
@@ -41,7 +40,7 @@ plt.grid(True)
 
 
 #overlapping the histograms for C0 and C1
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6, 4))
 plt.hist(C0_data, bins=100, color='blue', alpha=0.6, label='Class C0', edgecolor='black')
 plt.hist(C1_data, bins=100, color='yellow', alpha=0.6, label='Class C1', edgecolor='black')
 plt.title('Overlapping Histogram of C0 and C1')
@@ -149,7 +148,7 @@ print(f"Correctly classified values: {len(correctly_classified)}\n")
 2d, plotting of miscalculated and correctly calculated values
 """
 
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6, 4))
 
 #histogram for correctly classified values
 plt.hist(correctly_classified, bins=50, color='green', alpha=0.6, label='Correctly Classified', edgecolor='black')
@@ -157,7 +156,7 @@ plt.hist(correctly_classified, bins=50, color='green', alpha=0.6, label='Correct
 #histogram for misclassified values
 plt.hist(misclassified, bins=50, color='red', alpha=0.6, label='Misclassified', edgecolor='black')
 
-plt.title('Histogram of Correctly Classified vs Misclassified Data')
+plt.title('Histogram of Correctly Classified and Misclassified Values')
 plt.xlabel('Value')
 plt.ylabel('Frequency')
 plt.legend()
